@@ -5,13 +5,15 @@
     <title>Oldest Album</title>
 </head>
 
-<body style="background-color: rgb(255,196,178);">
+<body style="background-color: rgb(255,196,178); margin: 0px;">
 
     <nav
-        style="color: white; background-color: white; padding: 2rem; margin: auto; margin-right: 15rem; margin-left: 15rem; border-radius: 15px 15px 15px 15px;">
+        style="color: white; background-color: white; padding: 2rem;">
         <center
             style="color: black; font-family:Verdana, Geneva, Tahoma, sans-serif; font-style: italic; font-size: larger;">
             WHICH IS THE OLDER ALBUM?
+            <button style="font-size: large;"onclick="reset()"> ⟳ </button>
+           
         </center>
         <center
             style="color: black; font-family:Verdana, Geneva, Tahoma, sans-serif; font-style: italic; font-size: larger;">
@@ -32,15 +34,16 @@
 
 
     <center>
-        <button class="button1"
+        <button class="button"
             style="margin-top: 1rem;background-color:white; border-color: black; size: fixed; width: 21rem;  padding-bottom: 1.5rem; padding-top:1.5rem; font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif; font-style: italic; border-width: 5px; "
-            type="button" onclick="leftAlbum()">{{name1}}({{days1}})</button>
+            type="button" class="button1"onclick="leftAlbum()"><b>{{name1}} </b><div>by {{artist1}}</div></button>
         <button
-            style="margin-left: 5rem; background-color:white; border-color: black; size: fixed; width: 21rem; padding-bottom: 1.5rem; padding-top:1.5rem;font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif; font-style: italic; border-width: 5px; "
-            type="button" onclick="rightAlbum()">{{name2}}({{days2}})</button>
+            class="button" style="margin-left: 5rem; background-color:white; border-color: black; size: fixed; width: 21rem; padding-bottom: 1.5rem; padding-top:1.5rem;font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif; font-style: italic; border-width: 5px; "
+            type="button" onclick="rightAlbum()"><b>{{name2}} </b><div>by {{artist2}}</div></button>
     </center>
 
 </body>
+
 
 
 </html>
@@ -48,8 +51,8 @@
     var leftdays = parseInt('{{ days1 }}')
     var rightdays = parseInt('{{ days2 }}')
     var audio = new Audio('audio_file.mp3');
-    score = document.getElementById("score").innerHTML;
-
+    score = localStorage.getItem("score");
+    document.getElementById("score").innerHTML = score;
 
     function leftAlbum() {
         if (leftdays > rightdays) {
@@ -57,7 +60,7 @@
             score = localStorage.getItem("score");
             score = parseInt(score)
             score = score + 1;
-            document.getElementById("score").innerHTML = parseInt(score);
+            document.getElementById("score").innerHTML = score;
             localStorage.setItem("score", score);
             location.reload()
         } else  {
@@ -82,5 +85,10 @@
             localStorage.setItem("score", 0);
             
         }
+    }
+
+    function reset() {
+        location.reload()
+        localStorage.setItem("score", 0);
     }
 </script>

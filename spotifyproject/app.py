@@ -31,8 +31,8 @@ def getalbum():
     
     i = random.randint(0, 3)
     j=random.randint(0,3)
-    while j == i:
-        j = random.randint(0, 3)
+    while (i==j):
+        i = random.randint(0, 3)
 
     album1 = response["albums"][i]
     album2 = response["albums"][j]
@@ -59,8 +59,10 @@ def getalbum():
     name2 = album2["name"]
     image1 = album1["images"][1]["url"]
     image2 = album2["images"][1]["url"]
+    artist1 = album1["artists"][0]["name"]
+    artist2 = album2["artists"][0]["name"]
     
-    return render_template("album.html", days1=days1, days2=days2, image1=image1, image2=image2, name1=name1, name2=name2)
+    return render_template("album.html", days1=days1, days2=days2, image1=image1, image2=image2, name1=name1, name2=name2, artist1=artist1, artist2=artist2)
 
 
 app.run(debug=True)
