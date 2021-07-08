@@ -54,13 +54,11 @@
 
 <script>
     
-    var audio = new Audio('audio_file.mp3');
     score = localStorage.getItem("score");
     document.getElementById("score").innerHTML = score;
 
     function leftAlbum() {
-        if (album1["release_date"] > album2["release_date"]) {
-            audio.play();
+        if (album1["release_date"] < album2["release_date"]) {
             score = localStorage.getItem("score");
             score = parseInt(score)
             score = score + 1;
@@ -75,8 +73,7 @@
         }
     }
     function rightAlbum() {
-        if (album1["release_date"] < album2["release_date"]) {
-            audio.play();
+        if (album1["release_date"] > album2["release_date"]) {
             score = localStorage.getItem("score");
             score = parseInt(score)
             score = score + 1;
