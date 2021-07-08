@@ -12,6 +12,14 @@ SPOTIFY_AUTHORIZATION = spotify_auth.get_bearer_token()
 
 app = Flask(__name__)
 
+SPOTIFY_DATA = requests.get(
+        "https://api.spotify.com/v1/albums",
+        params={
+            "ids": "45ba6QAtNrdv6Ke4MFOKk9,3lajefIuUk4SfzqVBSJy8p,7z4GhRfLqfSkqrj5F3Yt2B,1lXY618HWkwYKJWBRYR4MK,6PBZN8cbwkqm1ERj2BGXJ1,42WVQWuf1teDysXiOupIZt,4GNIhgEGXzWGAefgN5qjdU,41GuZcammIkupMPKH2OJ6I,6pwuKxMUkNg673KETsXPUV,20r762YmB5HeofjMCiPMLv,4Uv86qWpGTxf7fU7lG5X6F,5fPglEDz9YEwRgbLRvhCZy,7gsWAHLeT0w7es6FofOXk1,7ycBtnsMtyVbbwTfJwRjSP,4eLPsYPBmXABThSJ821sqY,2VBcztE58pBKjIDS5oEgFh"
+        },
+        headers={"Authorization": SPOTIFY_AUTHORIZATION},
+    ).json()
+
 
 @app.route("/")
 def home():
@@ -20,41 +28,26 @@ def home():
 
 @app.route("/album")
 def getalbum():
-    response = requests.get(
-        "https://api.spotify.com/v1/albums",
-        params={
-            "ids": "3XLn9BkDkwq4icsUye2Krp,1oNWum7uuaISS4cSgDQhWT,2If8WvHmIANFsGWDf36e2M,2vmjRfAgNyYIiFsHuUU8u9"
-        },
-        headers={"Authorization": SPOTIFY_AUTHORIZATION},
-    ).json()
 
+    for idx, album in enumerate(SPOTIFY_DATA["albums"]):
+        if album is None:
+            print(f"{idx} is none")
+        else:
+            print(f"{idx} is NOT none")
     
-    i = random.randint(0, 3)
-    j=random.randint(0,3)
+    response = SPOTIFY_DATA
+    num_albums = len(response["albums"])
+    i = random.randint(0, num_albums-1)
+    j=random.randint(0, num_albums-1)
     while (i==j):
-        i = random.randint(0, 3)
+        i = random.randint(0, 17)
+
 
     album1 = response["albums"][i]
     album2 = response["albums"][j]
     albumdate1 = album1["release_date"]
     albumdate2 = album2["release_date"]
-    year1 = int(albumdate1[0:4])
-    month1 = int(albumdate1[5:7])
-    day1 = int(albumdate1[8:10])
 
-    year2 = int(albumdate2[0:4])
-    month2 = int(albumdate2[5:7])
-    day2 = int(albumdate2[8:10])
-
-    d0 = date(year1, month1, day1)
-    d01 = date(year2, month2, day2)
-    d1 = date.today()
-    delta1 = d1 - d0
-    delta2 = d1 - d01
-    daysbetween1 = delta1.days
-    daysbetween2 = delta2.days
-    days1 = str(daysbetween1)
-    days2 = str(daysbetween2)
     name1 = album1["name"]
     name2 = album2["name"]
     image1 = album1["images"][1]["url"]
@@ -62,7 +55,7 @@ def getalbum():
     artist1 = album1["artists"][0]["name"]
     artist2 = album2["artists"][0]["name"]
     
-    return render_template("album.html", days1=days1, days2=days2, image1=image1, image2=image2, name1=name1, name2=name2, artist1=artist1, artist2=artist2)
+    return render_template("album.html", album1=album1, album2=album2, image1=image1, image2=image2, name1=name1, name2=name2, artist1=artist1, artist2=artist2)
 
 
 app.run(debug=True)

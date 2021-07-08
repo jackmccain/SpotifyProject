@@ -48,14 +48,18 @@
 
 </html>
 <script>
-    var leftdays = parseInt('{{ days1 }}')
-    var rightdays = parseInt('{{ days2 }}')
+    var album1 = {{ album1 | tojson }};
+    var album2 = {{ album2 | tojson }};
+</script>
+
+<script>
+    
     var audio = new Audio('audio_file.mp3');
     score = localStorage.getItem("score");
     document.getElementById("score").innerHTML = score;
 
     function leftAlbum() {
-        if (leftdays > rightdays) {
+        if (album1["release_date"] > album2["release_date"]) {
             audio.play();
             score = localStorage.getItem("score");
             score = parseInt(score)
@@ -71,7 +75,7 @@
         }
     }
     function rightAlbum() {
-        if (leftdays < rightdays) {
+        if (album1["release_date"] < album2["release_date"]) {
             audio.play();
             score = localStorage.getItem("score");
             score = parseInt(score)
