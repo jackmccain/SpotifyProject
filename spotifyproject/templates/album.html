@@ -11,7 +11,13 @@
         style="color: white; background-color: white; padding: 2rem; margin: auto; margin-right: 15rem; margin-left: 15rem; border-radius: 15px 15px 15px 15px;">
         <center
             style="color: black; font-family:Verdana, Geneva, Tahoma, sans-serif; font-style: italic; font-size: larger;">
-            WHICH IS THE OLDER ALBUM?</center>
+            WHICH IS THE OLDER ALBUM?
+        </center>
+        <center
+            style="color: black; font-family:Verdana, Geneva, Tahoma, sans-serif; font-style: italic; font-size: larger;">
+            <h1 id="score"> 0 </h1>
+        </center>
+        
     </nav>
     <style>
         img {
@@ -31,7 +37,7 @@
             type="button" onclick="leftAlbum()">{{name1}}({{days1}})</button>
         <button
             style="margin-left: 5rem; background-color:white; border-color: black; size: fixed; width: 21rem; padding-bottom: 1.5rem; padding-top:1.5rem;font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif; font-style: italic; border-width: 5px; "
-            type="button">{{name2}}({{days2}})</button>
+            type="button" onclick="rightAlbum()">{{name2}}({{days2}})</button>
     </center>
 
 </body>
@@ -41,30 +47,40 @@
 <script>
     var leftdays = parseInt('{{ days1 }}')
     var rightdays = parseInt('{{ days2 }}')
+    var audio = new Audio('audio_file.mp3');
+    score = document.getElementById("score").innerHTML;
+
 
     function leftAlbum() {
-        
+        if (leftdays > rightdays) {
+            audio.play();
+            score = localStorage.getItem("score");
+            score = parseInt(score)
+            score = score + 1;
+            document.getElementById("score").innerHTML = parseInt(score);
+            localStorage.setItem("score", score);
+            location.reload()
+        } else  {
+            location.reload()
+            alert("Incorrect!")
+            localStorage.setItem("score", 0);
+            
+        }
     }
     function rightAlbum() {
-        console.log("HelloWorld")
+        if (leftdays < rightdays) {
+            audio.play();
+            score = localStorage.getItem("score");
+            score = parseInt(score)
+            score = score + 1;
+            document.getElementById("score").innerHTML = score;
+            localStorage.setItem("score", score);
+            location.reload()
+        } else  {
+            location.reload()
+            alert("Incorrect!")
+            localStorage.setItem("score", 0);
+            
+        }
     }
 </script>
-
-
-
-
-
-
-<!-- {% for album in input%}
-<p><i><a href= "{{album['external_urls']['spotify']}}""> {{album["name"]}}</a></i> by
-{% for artist in album["artists"] %}
-     <a href="{{artist['external_urls']['spotify']}}">{{artist["name"]}}</a> featured:
-
-{% endfor %} 
-
-{% for track in album["tracks"]["items"] %}
-<li><a href="{{track['external_urls']['spotify']}}" >{{track["name"]}}</a</li>
-{% endfor %}
-</p>
-{% endfor %}
- -->
