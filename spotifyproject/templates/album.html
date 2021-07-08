@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Oldest Album</title>
+</head>
+
+<body style="background-color: rgb(255,196,178);">
+
+    <nav
+        style="color: white; background-color: white; padding: 2rem; margin: auto; margin-right: 15rem; margin-left: 15rem; border-radius: 15px 15px 15px 15px;">
+        <center
+            style="color: black; font-family:Verdana, Geneva, Tahoma, sans-serif; font-style: italic; font-size: larger;">
+            WHICH IS THE OLDER ALBUM?</center>
+    </nav>
+    <style>
+        img {
+            margin-top: 3rem;
+            border: 1rem solid white;
+        }
+    </style>
+    <center>
+        <img src="{{image1}}">
+        <img style="margin-left: 5rem" src="{{image2}}">
+    </center>
+
+
+    <center>
+        <button class="button1"
+            style="margin-top: 1rem;background-color:white; border-color: black; size: fixed; width: 21rem;  padding-bottom: 1.5rem; padding-top:1.5rem; font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif; font-style: italic; border-width: 5px; "
+            type="button" onclick="leftAlbum()">{{name1}}({{days1}})</button>
+        <button
+            style="margin-left: 5rem; background-color:white; border-color: black; size: fixed; width: 21rem; padding-bottom: 1.5rem; padding-top:1.5rem;font-size: larger; font-family: Verdana, Geneva, Tahoma, sans-serif; font-style: italic; border-width: 5px; "
+            type="button">{{name2}}({{days2}})</button>
+    </center>
+
+</body>
+
+
+</html>
+<script>
+    var leftdays = parseInt('{{ days1 }}')
+    var rightdays = parseInt('{{ days2 }}')
+
+    function leftAlbum() {
+        
+    }
+    function rightAlbum() {
+        console.log("HelloWorld")
+    }
+</script>
+
+
+
+
+
+
+<!-- {% for album in input%}
+<p><i><a href= "{{album['external_urls']['spotify']}}""> {{album["name"]}}</a></i> by
+{% for artist in album["artists"] %}
+     <a href="{{artist['external_urls']['spotify']}}">{{artist["name"]}}</a> featured:
+
+{% endfor %} 
+
+{% for track in album["tracks"]["items"] %}
+<li><a href="{{track['external_urls']['spotify']}}" >{{track["name"]}}</a</li>
+{% endfor %}
+</p>
+{% endfor %}
+ -->
